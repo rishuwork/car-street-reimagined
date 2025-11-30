@@ -226,7 +226,7 @@ const Contact = () => {
                 {/* Map */}
                 <Card className="overflow-hidden">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2885.5847892614243!2d-79.6437445!3d43.6777176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b3ae8dddffc7f%3A0x5b2e2f7d1e6f8b1e!2sMississauga%2C%20ON%20L5B%201M5!5e0!3m2!1sen!2sca!4v1234567890123!5m2!1sen!2sca"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2930.212481334369!2d-80.57972262393604!3d42.7415565109146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882dcc5a75843eb9%3A0xc9d01a458a320bf7!2s17%20Queen%20St%2C%20Langton%2C%20ON%20N0E%201G0%2C%20Canada!5e0!3m2!1sen!2sin!4v1764520396472!5m2!1sen!2sin"
                     width="100%"
                     height="256"
                     style={{ border: 0 }}
