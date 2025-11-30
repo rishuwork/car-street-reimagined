@@ -1,15 +1,17 @@
 import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Phone, Mail, ArrowLeft, Check } from "lucide-react";
+import { Phone, Mail, ArrowLeft, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
 const VehicleDetail = () => {
   const { id } = useParams();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const { data: vehicle, isLoading } = useQuery({
     queryKey: ["vehicle", id],
@@ -89,19 +91,46 @@ const VehicleDetail = () => {
               <div className="space-y-4">
                 {images && images.length > 0 ? (
                   <>
-                    <img 
-                      src={images[0].image_url} 
-                      alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                      className="w-full h-96 object-cover rounded-lg"
-                    />
+                    <div className="relative group">
+                      <img 
+                        src={images[selectedImageIndex].image_url} 
+                        alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                        className="w-full h-96 object-cover rounded-lg"
+                      />
+                      {images.length > 1 && (
+                        <>
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => setSelectedImageIndex((prev) => prev === 0 ? images.length - 1 : prev - 1)}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => setSelectedImageIndex((prev) => prev === images.length - 1 ? 0 : prev + 1)}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                        </>
+                      )}
+                    </div>
                     {images.length > 1 && (
-                      <div className="grid grid-cols-3 gap-4">
-                        {images.slice(1).map((image) => (
+                      <div className="grid grid-cols-4 gap-4">
+                        {images.map((image, index) => (
                           <img 
                             key={image.id}
                             src={image.image_url} 
                             alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                            className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                            className={`w-full h-24 object-cover rounded-lg cursor-pointer transition-all ${
+                              selectedImageIndex === index 
+                                ? 'ring-2 ring-primary opacity-100' 
+                                : 'opacity-60 hover:opacity-100'
+                            }`}
+                            onClick={() => setSelectedImageIndex(index)}
                           />
                         ))}
                       </div>
