@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,8 @@ type Vehicle = Tables<"vehicles">;
 type VehicleImage = Tables<"vehicle_images">;
 
 const Inventory = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [makeFilter, setMakeFilter] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
@@ -26,6 +26,14 @@ const Inventory = () => {
 
   // Get maxPrice from URL params (from budget calculator)
   const maxPriceParam = searchParams.get('maxPrice');
+
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setMakeFilter("all");
+    setPriceFilter("all");
+    // Clear URL parameters
+    navigate('/inventory', { replace: true });
+  };
 
   useEffect(() => {
     loadVehicles();
@@ -152,11 +160,7 @@ const Inventory = () => {
                   </SelectContent>
                 </Select>
 
-                <Button variant="default" onClick={() => {
-                  setSearchTerm("");
-                  setMakeFilter("all");
-                  setPriceFilter("all");
-                }}>
+                <Button variant="default" onClick={handleClearFilters}>
                   Clear Filters
                 </Button>
               </div>
