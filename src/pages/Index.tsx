@@ -90,16 +90,17 @@ const Index = () => {
                       alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
                       className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold">
-                      ${vehicle.price.toLocaleString()}
-                    </div>
                   </div>
                   <CardContent className="p-6">
                     <h3 className="text-2xl font-heading font-bold mb-2">
                       {vehicle.year} {vehicle.make} {vehicle.model}
                     </h3>
-                    <div className="text-muted-foreground mb-4">
-                      <span className="text-sm">{vehicle.mileage.toLocaleString()} km</span>
+                    <div className="mb-2">
+                      <span className="text-sm text-muted-foreground">{vehicle.mileage.toLocaleString()} km</span>
+                    </div>
+                    <div className="mb-4">
+                      <p className="text-2xl font-bold text-foreground">${vehicle.price.toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">+ HST & licensing</p>
                     </div>
                     <Button variant="default" className="w-full" asChild>
                       <Link to={`/vehicle/${vehicle.id}`}>View Details</Link>
