@@ -55,11 +55,14 @@ const Index = () => {
             <Button size="lg" variant="default" asChild className="text-lg px-8">
               <Link to="/inventory">Browse Inventory</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="text-lg px-8 bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-foreground">
-              <a href="tel:+15555551234">
-                <Phone className="mr-2 h-5 w-5" />
-                Call Us Now
-              </a>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-lg px-8 bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-foreground"
+              onClick={() => window.location.href = 'tel:+15555551234'}
+            >
+              <Phone className="mr-2 h-5 w-5" />
+              Call Us Now
             </Button>
           </div>
         </div>

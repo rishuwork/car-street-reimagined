@@ -287,17 +287,26 @@ const VehicleDetail = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <Button variant="default" className="w-full" size="lg" asChild>
-                      <a href="tel:+15555551234" onClick={handleCallClick}>
-                        <Phone className="mr-2 h-5 w-5" />
-                        Call Now
-                      </a>
+                    <Button 
+                      variant="default" 
+                      className="w-full" 
+                      size="lg"
+                      onClick={() => {
+                        handleCallClick();
+                        window.location.href = 'tel:+15555551234';
+                      }}
+                    >
+                      <Phone className="mr-2 h-5 w-5" />
+                      Call Now
                     </Button>
-                    <Button variant="outline" className="w-full" size="lg" asChild>
-                      <a href="mailto:info@carstreet.com">
-                        <Mail className="mr-2 h-5 w-5" />
-                        Email Inquiry
-                      </a>
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      size="lg"
+                      onClick={() => window.location.href = 'mailto:info@carstreet.com'}
+                    >
+                      <Mail className="mr-2 h-5 w-5" />
+                      Email Inquiry
                     </Button>
                   </div>
 
