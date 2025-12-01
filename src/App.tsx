@@ -13,6 +13,7 @@ import VehicleDetail from "./pages/VehicleDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
+import PreApproval from "./pages/PreApproval";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import InventoryManagement from "./pages/admin/InventoryManagement";
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/vehicle/:id" element={<VehicleDetail />} />
+            <Route path="/pre-approval" element={<PreApproval />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/auth" element={<Auth />} />
