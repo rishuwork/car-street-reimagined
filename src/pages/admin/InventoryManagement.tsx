@@ -124,14 +124,14 @@ export default function InventoryManagement() {
         loadVehicles();
       }
     } else {
-      const { error } = await supabase.from("vehicles").insert(vehicleData);
+      const { data, error } = await supabase.from("vehicles").insert(vehicleData).select().single();
 
       if (error) {
         toast.error("Failed to add vehicle");
       } else {
-        toast.success("Vehicle added successfully");
-        setIsDialogOpen(false);
-        resetForm();
+        toast.success("Vehicle added! You can now add images.");
+        // Switch to edit mode so user can add images
+        setEditingVehicle(data);
         loadVehicles();
       }
     }
