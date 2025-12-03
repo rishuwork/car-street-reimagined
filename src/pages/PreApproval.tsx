@@ -166,10 +166,6 @@ const PreApproval = () => {
   const goToStep = (step: number, dir: number) => {
     setDirection(dir);
     setCurrentStep(step);
-    // Scroll to top of page smoothly
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 50);
   };
 
   const nextStep = () => {
