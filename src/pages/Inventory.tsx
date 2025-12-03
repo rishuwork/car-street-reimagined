@@ -255,11 +255,12 @@ const Inventory = () => {
 
                   return (
                     <Card key={vehicle.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-                      <div className="relative overflow-hidden">
+                      <div className="relative overflow-hidden aspect-video">
                         <img 
                           src={imageUrl} 
                           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          loading="lazy"
                         />
                         <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold">
                           ${Number(vehicle.price).toLocaleString()}
