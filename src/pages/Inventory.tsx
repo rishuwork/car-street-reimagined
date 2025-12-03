@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Star, Search } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Star, Search, ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 
@@ -27,6 +28,7 @@ const Inventory = () => {
   const [makes, setMakes] = useState<string[]>([]);
   const [models, setModels] = useState<string[]>([]);
   const [years, setYears] = useState<number[]>([]);
+  const [filtersOpen, setFiltersOpen] = useState(true);
 
   // Get maxPrice from URL params (from budget calculator)
   const maxPriceParam = searchParams.get('maxPrice');
@@ -143,77 +145,93 @@ const Inventory = () => {
           </div>
 
           {/* Search and Filter Section */}
-          <Card className="mb-4 bg-muted">
-            <CardContent className="py-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                <div className="relative md:col-span-1 lg:col-span-2">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-                
-                <Select value={makeFilter} onValueChange={(value) => {
-                  setMakeFilter(value);
-                  setModelFilter("all"); // Reset model when make changes
-                }}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All Makes" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Makes</SelectItem>
-                    {makes.map((make) => (
-                      <SelectItem key={make} value={make}>{make}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+          <Collapsible open={filtersOpen} onOpenChange={setFiltersOpen} className="mb-4">
+            <Card className="bg-muted">
+              <CollapsibleTrigger asChild>
+                <button className="w-full px-4 py-3 flex items-center justify-between hover:bg-muted/80 transition-colors rounded-t-lg">
+                  <div className="flex items-center gap-2">
+                    <SlidersHorizontal className="h-4 w-4" />
+                    <span className="font-medium text-sm">Filters</span>
+                    {(searchTerm || makeFilter !== 'all' || modelFilter !== 'all' || yearFilter !== 'all' || priceFilter !== 'all') && (
+                      <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">Active</span>
+                    )}
+                  </div>
+                  {filtersOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </button>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <CardContent className="py-3 pt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <div className="relative md:col-span-1 lg:col-span-2">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10"
+                      />
+                    </div>
+                    
+                    <Select value={makeFilter} onValueChange={(value) => {
+                      setMakeFilter(value);
+                      setModelFilter("all");
+                    }}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="All Makes" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Makes</SelectItem>
+                        {makes.map((make) => (
+                          <SelectItem key={make} value={make}>{make}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                <Select value={modelFilter} onValueChange={setModelFilter}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All Models" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Models</SelectItem>
-                    {filteredModels.map((model) => (
-                      <SelectItem key={model} value={model}>{model}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                    <Select value={modelFilter} onValueChange={setModelFilter}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="All Models" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Models</SelectItem>
+                        {filteredModels.map((model) => (
+                          <SelectItem key={model} value={model}>{model}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                <Select value={yearFilter} onValueChange={setYearFilter}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All Years" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Years</SelectItem>
-                    {years.map((year) => (
-                      <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                    <Select value={yearFilter} onValueChange={setYearFilter}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="All Years" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Years</SelectItem>
+                        {years.map((year) => (
+                          <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                <Select value={priceFilter} onValueChange={setPriceFilter}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All Prices" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Prices</SelectItem>
-                    <SelectItem value="under20k">Under $20,000</SelectItem>
-                    <SelectItem value="20to30k">$20,000 - $30,000</SelectItem>
-                    <SelectItem value="over30k">Over $30,000</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="mt-3 flex justify-end">
-                <Button variant="outline" size="sm" onClick={handleClearFilters}>
-                  Clear Filters
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                    <Select value={priceFilter} onValueChange={setPriceFilter}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="All Prices" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Prices</SelectItem>
+                        <SelectItem value="under20k">Under $20,000</SelectItem>
+                        <SelectItem value="20to30k">$20,000 - $30,000</SelectItem>
+                        <SelectItem value="over30k">Over $30,000</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <Button variant="outline" size="sm" onClick={handleClearFilters}>
+                      Clear Filters
+                    </Button>
+                  </div>
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
 
           {isLoading ? (
             <div className="text-center py-8">
