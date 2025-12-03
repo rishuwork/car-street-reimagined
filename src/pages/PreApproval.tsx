@@ -1284,14 +1284,9 @@ const PreApproval = () => {
                       your information and contact you within 24 hours to discuss
                       your pre-approval options.
                     </p>
-                    <div className="flex gap-4 justify-center">
-                      <Button size="lg" variant="outline" onClick={resetForm}>
-                        Submit Another Application
-                      </Button>
-                      <Button size="lg" asChild>
-                        <a href="/">Return to Home</a>
-                      </Button>
-                    </div>
+                    <Button size="lg" asChild>
+                      <a href="/">Return to Home</a>
+                    </Button>
                   </motion.div>
                 )}
               </motion.div>
