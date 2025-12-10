@@ -59,7 +59,7 @@ export default function CustomerReviews() {
   const duplicatedReviews = [...reviews, ...reviews];
 
   return (
-    <section className="py-4 bg-muted overflow-hidden">
+    <section className="py-12 bg-muted overflow-hidden">
       <div className="container mx-auto px-4 mb-6">
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-center">
           Canadians Trust Car Street for a Fast & Easy Car Experience!

@@ -129,7 +129,7 @@ const VehicleDetail = () => {
       )}
       <Header />
 
-      <main className="flex-1 py-2">
+      <main className="flex-1 py-12">
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <Button variant="ghost" asChild className="mb-2">
