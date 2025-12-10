@@ -85,10 +85,7 @@ const Index = () => {
               className="text-lg px-8 bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-foreground"
               asChild
             >
-              <Link to="/pre-approval">
-                <FileText className="mr-2 h-5 w-5" />
-                Get Pre-Approved
-              </Link>
+              <Link to="/pre-approval">Get Pre-Approved</Link>
             </Button>
           </div>
         </div>
