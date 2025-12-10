@@ -13,12 +13,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 
 // Vehicle type icons
-import CoupeIcon from "@/assets/vehicle-icons/coupe.svg";
-import HatchbackIcon from "@/assets/vehicle-icons/hatchback.svg";
-import SedanIcon from "@/assets/vehicle-icons/sedan.svg";
-import MinivanIcon from "@/assets/vehicle-icons/minivan.svg";
-import SuvIcon from "@/assets/vehicle-icons/suv.svg";
-import TruckIcon from "@/assets/vehicle-icons/truck.svg";
+import CoupeIcon from "@/assets/vehicle-icons/coupe.png";
+import HatchbackIcon from "@/assets/vehicle-icons/hatchback.png";
+import SedanIcon from "@/assets/vehicle-icons/sedan.png";
+import MinivanIcon from "@/assets/vehicle-icons/minivan.png";
+import SuvIcon from "@/assets/vehicle-icons/suv.png";
+import TruckIcon from "@/assets/vehicle-icons/truck.png";
 
 const vehicleTypes = [
   { id: "coupe", name: "Coupe", icon: CoupeIcon },
@@ -488,7 +488,7 @@ const PreApproval = () => {
                               : "border-border hover:border-primary/50"
                           }`}
                         >
-                          <img src={type.icon} alt={type.name} className="w-12 h-12 mx-auto mb-2 text-primary" />
+                          <img src={type.icon} alt={type.name} className="w-full h-16 mx-auto mb-2 object-contain" />
                           <div className="font-medium text-sm">{type.name}</div>
                         </motion.button>
                       ))}
