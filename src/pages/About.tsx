@@ -67,7 +67,7 @@ const About = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="py-4 bg-muted">
+        <section className="py-12 bg-muted">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {stats.map((stat, index) => (
@@ -86,7 +86,7 @@ const About = () => {
         </section>
 
         {/* Story Section */}
-        <section className="py-4">
+        <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-heading font-bold mb-4">Our Story</h2>
@@ -106,7 +106,7 @@ const About = () => {
         </section>
 
         {/* Values Section */}
-        <section className="py-4 bg-secondary text-secondary-foreground">
+        <section className="py-12 bg-secondary text-secondary-foreground">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-heading font-bold text-center mb-6">Our Values</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -134,7 +134,7 @@ const About = () => {
 
         {/* FAQ Section */}
         {faqs.length > 0 && (
-          <section className="py-4">
+          <section className="py-12">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                 <div className="lg:col-span-2">

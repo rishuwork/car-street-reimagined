@@ -143,7 +143,7 @@ const Inventory = () => {
       />
       <Header />
 
-      <main className="flex-1 py-4">
+      <main className="flex-1 py-12">
         <div className="container mx-auto px-4">
           {/* Page Header */}
           <div className="mb-3">
