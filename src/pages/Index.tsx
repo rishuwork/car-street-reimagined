@@ -5,8 +5,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BudgetCalculator from "@/components/BudgetCalculator";
 import FeaturedVehiclesCarousel from "@/components/FeaturedVehiclesCarousel";
+import CustomerReviews from "@/components/CustomerReviews";
 import { SEO } from "@/components/SEO";
-import { Check, Shield, DollarSign, Award, Phone } from "lucide-react";
+import { CreditCard, Eye, Scale, FileText } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -35,13 +36,30 @@ const Index = () => {
     },
   });
 
+  const whyChooseUs = [
+    {
+      icon: CreditCard,
+      title: "Special Financing Offers",
+      description: "Get approved instantly with low-interest rates & flexible terms—no credit, bad credit, no problem!"
+    },
+    {
+      icon: Eye,
+      title: "Transparent Pricing",
+      description: "What you see is what you pay—fair, honest, and upfront deals every time!"
+    },
+    {
+      icon: Scale,
+      title: "Buy Smart, Sell Right",
+      description: "We ensure you get top value—no overpaying, no underselling!"
+    }
+  ];
 
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
         title="Quality Used Cars in Langton, Ontario"
-        description="Find quality pre-owned vehicles at Car Street in Langton, ON. Browse our inventory of certified used cars with transparent pricing, warranty options, and flexible financing."
-        url="https://carstreet.com/"
+        description="We are certified used car dealers in Langton. Browse our pre-owned vehicles today & drive home your favourite! Contact us."
+        url="https://carstreet.ca/"
       />
       <Header />
 
@@ -65,31 +83,33 @@ const Index = () => {
               size="lg" 
               variant="outline" 
               className="text-lg px-8 bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-foreground"
-              onClick={() => window.location.href = 'tel:+15555551234'}
+              asChild
             >
-              <Phone className="mr-2 h-5 w-5" />
-              Call Us Now
+              <Link to="/pre-approval">
+                <FileText className="mr-2 h-5 w-5" />
+                Get Pre-Approved
+              </Link>
             </Button>
           </div>
         </div>
       </section>
 
       {/* Budget Calculator Section */}
-      <section className="py-16 bg-muted">
+      <section className="py-4 bg-muted">
         <div className="container mx-auto px-4">
           <BudgetCalculator />
         </div>
       </section>
 
       {/* Featured Vehicles Section */}
-      <section className="py-16">
+      <section className="py-4">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold mb-4">Featured Vehicles</h2>
-            <p className="text-xl text-muted-foreground">Check out our hand-picked selection of quality vehicles</p>
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-heading font-bold mb-2">Featured Vehicles</h2>
+            <p className="text-lg text-muted-foreground">Check out our hand-picked selection of quality vehicles</p>
           </div>
 
-          <div className="mb-8 px-8 md:px-12">
+          <div className="mb-6 px-8 md:px-12">
             <FeaturedVehiclesCarousel vehicles={featuredVehicles} />
           </div>
 
@@ -102,67 +122,37 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-secondary text-secondary-foreground">
+      <section className="py-4 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-heading font-bold mb-12 text-center">Why Choose Car Street?</h2>
+          <h2 className="text-3xl font-heading font-bold mb-6 text-center">Why Choose Car Street?</h2>
           
-          {/* Three main benefits moved from top */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-background">
-              <CardContent className="pt-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <Shield className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-heading font-bold mb-2">Quality Assured</h3>
-                <p className="text-muted-foreground">Every vehicle undergoes rigorous inspection and comes with warranty options</p>
-              </CardContent>
-            </Card>
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-background">
-              <CardContent className="pt-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <DollarSign className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-heading font-bold mb-2">Best Prices</h3>
-                <p className="text-muted-foreground">Competitive pricing with flexible financing options to fit your budget</p>
-              </CardContent>
-            </Card>
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-background">
-              <CardContent className="pt-8 text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <Award className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-heading font-bold mb-2">Top-Rated Service</h3>
-                <p className="text-muted-foreground">Award-winning customer service with thousands of satisfied customers</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Additional benefits list */}
-          <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-              {[
-                "100% price match guarantee",
-                "Comprehensive vehicle inspection",
-                "Extended warranty options",
-                "Flexible financing solutions",
-                "Trade-in assistance",
-                "7-day exchange policy",
-              ].map((item, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-lg">{item}</span>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {whyChooseUs.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-background">
+                  <CardContent className="pt-6 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                      <Icon className="h-8 w-8 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-heading font-bold mb-2">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
+      {/* Customer Reviews Section */}
+      <CustomerReviews />
+
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
+      <section className="py-4 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-heading font-bold mb-4">Ready to Find Your Perfect Car?</h2>
-          <p className="text-xl mb-8 opacity-90">Visit us today or browse our inventory online</p>
+          <h2 className="text-3xl font-heading font-bold mb-3">Ready to Find Your Perfect Car?</h2>
+          <p className="text-lg mb-6 opacity-90">Visit us today or browse our inventory online</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild>
               <Link to="/inventory">View Inventory</Link>

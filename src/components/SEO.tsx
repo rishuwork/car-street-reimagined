@@ -12,10 +12,10 @@ interface SEOProps {
 
 const defaultMeta = {
   title: 'Car Street - Quality Used Cars in Langton, Ontario',
-  description: 'Find quality pre-owned vehicles at Car Street in Langton, ON. Browse our inventory of certified used cars with transparent pricing, warranty options, and flexible financing.',
+  description: 'We are certified used car dealers in Langton. Browse our pre-owned vehicles today & drive home your favourite! Contact us.',
   keywords: 'used cars Langton, pre-owned vehicles, car dealership Ontario, quality used cars, certified used cars, car financing',
-  image: 'https://carstreet.com/og-image.jpg',
-  url: 'https://carstreet.com',
+  image: 'https://carstreet.ca/og-image.jpg',
+  url: 'https://carstreet.ca',
 };
 
 export function SEO({
@@ -45,11 +45,14 @@ export function SEO({
       <link rel="canonical" href={seo.url} />
 
       {/* Open Graph / Facebook */}
+      <meta property="og:locale" content="en_US" />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={seo.url} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:image" content={seo.image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="Car Street" />
 
       {/* Twitter */}

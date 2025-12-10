@@ -91,19 +91,19 @@ const Contact = () => {
       <SEO 
         title="Contact Us"
         description="Get in touch with Car Street. Visit our dealership in Langton, Ontario or call us to find your perfect pre-owned vehicle. Open 7 days a week."
-        url="https://carstreet.com/contact"
+        url="https://carstreet.ca/contact"
       />
       <Header />
 
-      <main className="flex-1 py-8">
+      <main className="flex-1 py-4">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8">
+            <div className="text-center mb-6">
               <h1 className="text-3xl md:text-4xl font-heading font-bold mb-2">Contact Us</h1>
               <p className="text-lg text-muted-foreground">We're here to help you find your perfect vehicle</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Contact Form */}
               <Card>
                 <CardHeader>
@@ -140,7 +140,7 @@ const Contact = () => {
                         id="phone" 
                         name="phone"
                         type="tel" 
-                        placeholder="(555) 555-1234"
+                        placeholder="(519) 582-5555"
                         onFocus={handleFormFocus}
                         maxLength={20}
                       />
@@ -170,7 +170,7 @@ const Contact = () => {
               </Card>
 
               {/* Contact Information */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <Card>
                   <CardHeader>
                     <CardTitle>Visit Us</CardTitle>
@@ -180,16 +180,16 @@ const Contact = () => {
                       <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium">Car Street</p>
-                        <p className="text-muted-foreground">123 Auto Boulevard</p>
-                        <p className="text-muted-foreground">Mississauga, ON L5B 1M5</p>
+                        <p className="text-muted-foreground">#1-17 Queen St</p>
+                        <p className="text-muted-foreground">Langton, ON N0E 1G0</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Phone className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium">Phone</p>
-                        <a href="tel:+15555551234" className="text-muted-foreground hover:text-primary transition-colors">
-                          (555) 555-1234
+                        <a href="tel:+15195825555" className="text-muted-foreground hover:text-primary transition-colors">
+                          (519) 582-5555
                         </a>
                       </div>
                     </div>
@@ -197,8 +197,8 @@ const Contact = () => {
                       <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium">Email</p>
-                        <a href="mailto:info@carstreet.com" className="text-muted-foreground hover:text-primary transition-colors">
-                          info@carstreet.com
+                        <a href="mailto:info@carstreet.ca" className="text-muted-foreground hover:text-primary transition-colors">
+                          info@carstreet.ca
                         </a>
                       </div>
                     </div>

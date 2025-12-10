@@ -60,17 +60,17 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-heading font-semibold text-lg">Contact Us</h4>
             <div className="space-y-3">
-              <a href="tel:+15555551234" className="flex items-start gap-2 text-sm hover:text-primary transition-colors">
+              <a href="tel:+15195825555" className="flex items-start gap-2 text-sm hover:text-primary transition-colors">
                 <Phone className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                <span>(555) 555-1234</span>
+                <span>(519) 582-5555</span>
               </a>
-              <a href="mailto:info@carstreet.com" className="flex items-start gap-2 text-sm hover:text-primary transition-colors">
+              <a href="mailto:info@carstreet.ca" className="flex items-start gap-2 text-sm hover:text-primary transition-colors">
                 <Mail className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                <span>info@carstreet.com</span>
+                <span>info@carstreet.ca</span>
               </a>
               <div className="flex items-start gap-2 text-sm text-secondary-foreground/80">
                 <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                <span>123 Auto Boulevard<br />Mississauga, ON L5B 1M5</span>
+                <span>#1-17 Queen St<br />Langton, ON N0E 1G0</span>
               </div>
             </div>
           </div>

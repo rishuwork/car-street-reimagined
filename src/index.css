@@ -2,52 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    /* Base colors */
     --background: 0 0% 100%;
     --foreground: 0 0% 10%;
-
-    /* Card colors */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 10%;
-
-    /* Popover */
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
-
-    /* Primary - Deep automotive red */
     --primary: 351 89% 36%;
     --primary-foreground: 0 0% 100%;
-
-    /* Secondary - Dark charcoal */
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
-
-    /* Muted - Light gray */
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 40%;
-
-    /* Accent - Bright red for CTAs */
     --accent: 351 89% 45%;
     --accent-foreground: 0 0% 100%;
-
-    /* Destructive */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-
-    /* Borders and inputs */
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: 351 89% 36%;
-
     --radius: 0.5rem;
-
-    /* Custom automotive design tokens */
+    
+    /* Price color - green */
+    --price: 142 76% 36%;
+    
     --hero-gradient: linear-gradient(135deg, hsl(0, 0%, 10%) 0%, hsl(0, 0%, 20%) 100%);
     --card-hover-shadow: 0 10px 40px -10px hsl(351 89% 36% / 0.3);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -56,31 +36,24 @@ All colors MUST be HSL.
   .dark {
     --background: 0 0% 10%;
     --foreground: 0 0% 98%;
-
     --card: 0 0% 15%;
     --card-foreground: 0 0% 98%;
-
     --popover: 0 0% 15%;
     --popover-foreground: 0 0% 98%;
-
     --primary: 351 89% 45%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 0 0% 20%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 60%;
-
     --accent: 351 89% 50%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 25%;
     --input: 0 0% 25%;
     --ring: 351 89% 45%;
+    --price: 142 76% 46%;
   }
 }
 
@@ -97,6 +70,12 @@ All colors MUST be HSL.
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
     font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .text-price {
+    color: hsl(var(--price));
   }
 }
 

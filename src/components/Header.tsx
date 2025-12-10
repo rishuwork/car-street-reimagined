@@ -29,37 +29,41 @@ const Header = () => {
               Open 7 Days a Week | Quality Pre-Owned Vehicles
             </div>
             <div className="flex items-center gap-4">
-              <a href="tel:+15555551234" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <a href="tel:+15195825555" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
                 <Phone className="h-4 w-4" />
-                <span className="font-medium">(555) 555-1234</span>
+                <span className="font-medium">(519) 582-5555</span>
               </a>
             </div>
           </div>
         </div>
 
         {/* Main navigation */}
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-heading font-bold text-foreground">
+            <span className="text-3xl font-heading font-bold text-foreground">
               CAR <span className="text-primary">STREET</span>
             </span>
           </Link>
 
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          {/* Desktop navigation - Centered */}
+          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                className="text-base font-medium text-foreground hover:text-primary transition-colors"
               >
                 {item.name}
               </Link>
             ))}
-            <Button variant="default" size="sm" asChild>
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
+            <Button variant="default" size="default" asChild>
               <Link to="/inventory">View Inventory</Link>
             </Button>
-          </nav>
+          </div>
 
           {/* Mobile navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -86,11 +90,11 @@ const Header = () => {
                   </Link>
                 </Button>
                 <a
-                  href="tel:+15555551234"
+                  href="tel:+15195825555"
                   className="flex items-center gap-2 text-foreground hover:text-primary transition-colors mt-4"
                 >
                   <Phone className="h-5 w-5" />
-                  <span className="font-medium">(555) 555-1234</span>
+                  <span className="font-medium">(519) 582-5555</span>
                 </a>
               </nav>
             </SheetContent>
