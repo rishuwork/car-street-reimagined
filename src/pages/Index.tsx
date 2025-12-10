@@ -87,14 +87,14 @@ const Index = () => {
       </section>
 
       {/* Budget Calculator Section */}
-      <section className="py-4 bg-muted">
+      <section className="py-8 bg-muted">
         <div className="container mx-auto px-4">
           <BudgetCalculator />
         </div>
       </section>
 
       {/* Featured Vehicles Section */}
-      <section className="py-4">
+      <section className="py-8">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6">
             <h2 className="text-3xl font-heading font-bold mb-2">Featured Vehicles</h2>
@@ -114,7 +114,7 @@ const Index = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-4 bg-secondary text-secondary-foreground">
+      <section className="py-8 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-heading font-bold mb-6 text-center">Why Choose Car Street?</h2>
           
@@ -141,7 +141,7 @@ const Index = () => {
       <CustomerReviews />
 
       {/* CTA Section */}
-      <section className="py-4 bg-primary text-primary-foreground">
+      <section className="py-8 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-heading font-bold mb-3">Ready to Find Your Perfect Car?</h2>
           <p className="text-lg mb-6 opacity-90">Visit us today or browse our inventory online</p>
