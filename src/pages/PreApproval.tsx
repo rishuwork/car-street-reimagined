@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 // Vehicle type icons
 import CoupeIcon from "@/assets/vehicle-icons/coupe.png";
@@ -255,7 +256,7 @@ const PreApproval = () => {
           return false;
         }
         break;
-      case 10:
+      case 10: {
         const years = parseInt(formData.yearsAtAddress) || 0;
         const months = parseInt(formData.monthsAtAddress) || 0;
         if (years === 0 && months === 0) {
@@ -267,6 +268,7 @@ const PreApproval = () => {
           return false;
         }
         break;
+      }
       case 11:
         if (!formData.rentOrOwn || !formData.monthlyHousePayment) {
           toast({ title: "Input Required", description: "Please complete all housing information", variant: "destructive" });
@@ -412,7 +414,7 @@ const PreApproval = () => {
 
       // Clear localStorage after successful submission
       localStorage.removeItem(STORAGE_KEY);
-      
+
       setCurrentStep(14);
       window.scrollTo({ top: 0, behavior: "instant" });
 
@@ -445,6 +447,11 @@ const PreApproval = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
+      <SEO
+        title="Get Pre-Approved for Auto Financing"
+        description="Apply for car financing online. Bad credit? No credit? We can help you get approved for your dream car."
+        url="https://carstreet.ca/pre-approval"
+      />
 
       <main className="flex-1 py-4 md:py-8">
         <div className="max-w-[700px] mx-auto px-4">
@@ -453,7 +460,7 @@ const PreApproval = () => {
             <motion.div className="mb-6" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm text-muted-foreground">Step {currentStep} of {TOTAL_STEPS}</span>
-                <span className="text-sm text-muted-foreground">Estimated time: 6 min</span>
+                <span className="text-sm text-muted-foreground">Estimated time: {Math.max(1, Math.ceil((TOTAL_STEPS - currentStep) * 0.5))} min</span>
               </div>
               <Progress value={progress} className="h-2" />
             </motion.div>
@@ -482,11 +489,10 @@ const PreApproval = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleSelection("vehicleType", type.id)}
-                          className={`p-4 rounded-lg border-2 transition-all ${
-                            formData.vehicleType === type.id
-                              ? "border-primary bg-primary/10 shadow-lg"
-                              : "border-border hover:border-primary/50"
-                          }`}
+                          className={`p-4 rounded-lg border-2 transition-all ${formData.vehicleType === type.id
+                            ? "border-primary bg-primary/10 shadow-lg"
+                            : "border-border hover:border-primary/50"
+                            }`}
                         >
                           <img src={type.icon} alt={type.name} className="w-full h-16 mx-auto mb-2 object-contain" />
                           <div className="font-medium text-sm">{type.name}</div>
@@ -508,11 +514,10 @@ const PreApproval = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleSelection("budget", option)}
-                          className={`p-4 rounded-lg border-2 text-center transition-all ${
-                            formData.budget === option
-                              ? "border-primary bg-primary/10 shadow-md"
-                              : "border-border hover:border-primary/50"
-                          }`}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${formData.budget === option
+                            ? "border-primary bg-primary/10 shadow-md"
+                            : "border-border hover:border-primary/50"
+                            }`}
                         >
                           <span className="font-medium text-sm">{option}</span>
                         </motion.button>
@@ -533,11 +538,10 @@ const PreApproval = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleSelection("tradeIn", option)}
-                          className={`p-4 rounded-lg border-2 text-center transition-all ${
-                            formData.tradeIn === option
-                              ? "border-primary bg-primary/10 shadow-md"
-                              : "border-border hover:border-primary/50"
-                          }`}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${formData.tradeIn === option
+                            ? "border-primary bg-primary/10 shadow-md"
+                            : "border-border hover:border-primary/50"
+                            }`}
                         >
                           <span className="font-medium">{option}</span>
                         </motion.button>
@@ -558,11 +562,10 @@ const PreApproval = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleSelection("creditRating", option.value)}
-                          className={`p-4 rounded-lg border-2 text-center transition-all ${
-                            formData.creditRating === option.value
-                              ? "border-primary bg-primary/10 shadow-md"
-                              : "border-border hover:border-primary/50"
-                          }`}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${formData.creditRating === option.value
+                            ? "border-primary bg-primary/10 shadow-md"
+                            : "border-border hover:border-primary/50"
+                            }`}
                         >
                           <span className="font-medium text-sm">{option.label}</span>
                         </motion.button>
@@ -583,11 +586,10 @@ const PreApproval = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleSelection("employmentStatus", option)}
-                          className={`p-4 rounded-lg border-2 text-center transition-all ${
-                            formData.employmentStatus === option
-                              ? "border-primary bg-primary/10 shadow-md"
-                              : "border-border hover:border-primary/50"
-                          }`}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${formData.employmentStatus === option
+                            ? "border-primary bg-primary/10 shadow-md"
+                            : "border-border hover:border-primary/50"
+                            }`}
                         >
                           <span className="font-medium text-sm">{option}</span>
                         </motion.button>
@@ -608,11 +610,10 @@ const PreApproval = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleSelection("incomeType", option)}
-                          className={`p-4 rounded-lg border-2 text-center transition-all ${
-                            formData.incomeType === option
-                              ? "border-primary bg-primary/10 shadow-md"
-                              : "border-border hover:border-primary/50"
-                          }`}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${formData.incomeType === option
+                            ? "border-primary bg-primary/10 shadow-md"
+                            : "border-border hover:border-primary/50"
+                            }`}
                         >
                           <span className="font-medium text-sm">{option}</span>
                         </motion.button>
@@ -874,11 +875,10 @@ const PreApproval = () => {
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className={`p-3 rounded-lg ${
-                            formData.age >= 17 && formData.age <= 100
-                              ? "bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900"
-                              : "bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900"
-                          }`}
+                          className={`p-3 rounded-lg ${formData.age >= 17 && formData.age <= 100
+                            ? "bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900"
+                            : "bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900"
+                            }`}
                         >
                           <p className="text-sm">
                             Based on your input, you are <strong>{formData.age}</strong> years old.

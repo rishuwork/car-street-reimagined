@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { X } from 'lucide-react';
@@ -12,18 +12,7 @@ const CookieConsent = () => {
     marketing: false,
   });
 
-  useEffect(() => {
-    const consent = localStorage.getItem('cookie_consent');
-    if (!consent) {
-      setShowBanner(true);
-    } else {
-      const savedPreferences = JSON.parse(consent);
-      setPreferences(savedPreferences);
-      applyConsent(savedPreferences);
-    }
-  }, []);
-
-  const applyConsent = (prefs: typeof preferences) => {
+  const applyConsent = useCallback((prefs: typeof preferences) => {
     // Disable non-essential tracking if rejected
     if (!prefs.analytics) {
       // Disable GA4 advanced tracking
@@ -39,7 +28,7 @@ const CookieConsent = () => {
       if (window.fbq) {
         window.fbq('consent', 'revoke');
       }
-      
+
       // Disable Google Ads
       if (window.gtag) {
         window.gtag('consent', 'update', {
@@ -49,7 +38,18 @@ const CookieConsent = () => {
         });
       }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie_consent');
+    if (!consent) {
+      setShowBanner(true);
+    } else {
+      const savedPreferences = JSON.parse(consent);
+      setPreferences(savedPreferences);
+      applyConsent(savedPreferences);
+    }
+  }, [applyConsent]);
 
   const handleAcceptAll = () => {
     const allAccepted = { necessary: true, analytics: true, marketing: true };
@@ -57,7 +57,7 @@ const CookieConsent = () => {
     localStorage.setItem('cookie_consent', JSON.stringify(allAccepted));
     applyConsent(allAccepted);
     setShowBanner(false);
-    
+
     // Reload tracking scripts
     window.location.reload();
   };
@@ -75,7 +75,7 @@ const CookieConsent = () => {
     applyConsent(preferences);
     setShowBanner(false);
     setShowPreferences(false);
-    
+
     // Reload if marketing was just enabled
     if (preferences.marketing || preferences.analytics) {
       window.location.reload();
@@ -101,10 +101,10 @@ const CookieConsent = () => {
                   <X className="h-4 w-4" />
                 </Button>
               </div>
-              
+
               <p className="text-sm text-muted-foreground mb-6">
-                We use cookies to enhance your browsing experience, serve personalized content, 
-                and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. 
+                We use cookies to enhance your browsing experience, serve personalized content,
+                and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
                 You can manage your preferences or learn more in our{' '}
                 <a href="/privacy" className="text-primary hover:underline">
                   Privacy Policy
@@ -118,8 +118,8 @@ const CookieConsent = () => {
                 <Button onClick={handleRejectNonEssential} variant="outline" className="flex-1">
                   Reject Non-Essential
                 </Button>
-                <Button 
-                  onClick={() => setShowPreferences(true)} 
+                <Button
+                  onClick={() => setShowPreferences(true)}
                   variant="secondary"
                   className="flex-1"
                 >

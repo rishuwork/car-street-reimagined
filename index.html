@@ -1,60 +1,43 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-    <!-- End Google Tag Manager -->
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="canonical" href="https://carstreet.com/" />
-    
-    <!-- Primary Meta Tags -->
-    <title>Car Street - Quality Used Cars in Mississauga | Best Pre-Owned Vehicle Deals</title>
-    <meta name="title" content="Car Street - Quality Used Cars in Mississauga | Best Pre-Owned Vehicle Deals" />
-    <meta name="description" content="Quality pre-owned vehicles at Car Street in Ontario. Browse our inventory of certified used cars with transparent pricing and flexible financing.">
-    <meta name="keywords" content="used cars Mississauga, pre-owned vehicles, car dealership Mississauga, quality used cars, certified used cars, car financing, Honda Civic, Toyota Camry, used SUVs, affordable cars Ontario">
-    <meta name="author" content="Car Street" />
-    <meta name="robots" content="index, follow" />
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX');</script>
+  <!-- End Google Tag Manager -->
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://carstreet.com/" />
-    
-    
-    <meta property="og:image" content="https://carstreet.com/og-image.jpg" />
-    <meta property="og:site_name" content="Car Street" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://carstreet.com/" />
-    
-    
-    <meta name="twitter:image" content="https://carstreet.com/twitter-image.jpg" />
+  <!-- Helmet Meta Placeholder -->
+  <!--helmet-meta-->
 
-    <!-- Structured Data - Local Business -->
-    <script type="application/ld+json">
+  <!-- Structured Data - Local Business -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "AutoDealer",
       "name": "Car Street",
-      "image": "https://carstreet.com/logo.jpg",
+      "image": "https://carstreet.ca/logo.jpg",
       "description": "Quality pre-owned vehicles with transparent pricing and exceptional service",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "123 Auto Boulevard",
-        "addressLocality": "Mississauga",
+        "streetAddress": "17 Queen St",
+        "addressLocality": "Langton",
         "addressRegion": "ON",
-        "postalCode": "L5B 1M5",
+        "postalCode": "N0E 1G0",
         "addressCountry": "CA"
       },
-      "telephone": "+15555551234",
-      "email": "info@carstreet.com",
-      "url": "https://carstreet.com",
+      "telephone": "+16398990000",
+      "email": "info@carstreet.ca",
+      "url": "https://carstreet.ca",
       "priceRange": "$$",
       "openingHoursSpecification": [
         {
@@ -79,26 +62,23 @@
     }
     </script>
 
-    <!-- CRM User Identification Hook -->
-    <script>
-      window.identifyUser = function(emailOrPhone, data) {
-        console.log("CRM Identify:", emailOrPhone, data);
-        // This will be replaced with real CRM integration later (HubSpot/Zoho/etc.)
-      };
-    </script>
-    <meta property="og:title" content="Car Street - Quality Used Cars in Mississauga | Best Pre-Owned Vehicle Deals">
-  <meta name="twitter:title" content="Car Street - Quality Used Cars in Mississauga | Best Pre-Owned Vehicle Deals">
-  <meta property="og:description" content="Quality pre-owned vehicles at Car Street in Ontario. Browse our inventory of certified used cars with transparent pricing and flexible financing.">
-  <meta name="twitter:description" content="Quality pre-owned vehicles at Car Street in Ontario. Browse our inventory of certified used cars with transparent pricing and flexible financing.">
+  <!-- CRM User Identification Hook -->
+  <script>
+    window.identifyUser = function (emailOrPhone, data) {
+      console.log("CRM Identify:", emailOrPhone, data);
+      // This will be replaced with real CRM integration later (HubSpot/Zoho/etc.)
+    };
+  </script>
 </head>
 
-  <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <div id="root"><!--app-html--></div>
+  <script type="module" src="/src/entry-client.tsx"></script>
+</body>
+
 </html>

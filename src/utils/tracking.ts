@@ -13,7 +13,7 @@ declare global {
       make: string;
       model: string;
     };
-    identifyUser?: (emailOrPhone: string, data: any) => void;
+    identifyUser?: (emailOrPhone: string, data: Record<string, unknown>) => void;
   }
 }
 
@@ -22,62 +22,73 @@ if (typeof window !== 'undefined') {
   window.dataLayer = window.dataLayer || [];
 }
 
-// Track vehicle view event
-export const trackVehicleView = (vehicle: {
+interface Vehicle {
   id: string;
   vin: string;
   year: number;
   make: string;
   model: string;
   price: number;
-}) => {
+}
+
+interface InventoryFilters {
+  searchQuery?: string;
+  priceFilter?: string;
+  makeFilter?: string;
+  [key: string]: string | number | boolean | undefined | null;
+}
+
+// Track vehicle view event
+export const trackVehicleView = (vehicle: Vehicle) => {
   const vehicleName = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
-  
+
   // Set global vehicle data
-  window.vehicleData = {
-    id: vehicle.vin,
-    name: vehicleName,
-    price: vehicle.price,
-    year: vehicle.year,
-    make: vehicle.make,
-    model: vehicle.model,
-  };
+  if (typeof window !== 'undefined') {
+    window.vehicleData = {
+      id: vehicle.vin,
+      name: vehicleName,
+      price: vehicle.price,
+      year: vehicle.year,
+      make: vehicle.make,
+      model: vehicle.model,
+    };
 
-  // GA4 Event
-  if (window.dataLayer) {
-    window.dataLayer.push({
-      event: 'view_item',
-      ecommerce: {
-        items: [{
-          item_id: vehicle.vin,
-          item_name: vehicleName,
-          price: vehicle.price,
-          vehicle_year: vehicle.year,
-          vehicle_make: vehicle.make,
-          vehicle_model: vehicle.model,
-        }]
-      }
-    });
-  }
+    // GA4 Event
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'view_item',
+        ecommerce: {
+          items: [{
+            item_id: vehicle.vin,
+            item_name: vehicleName,
+            price: vehicle.price,
+            vehicle_year: vehicle.year,
+            vehicle_make: vehicle.make,
+            vehicle_model: vehicle.model,
+          }]
+        }
+      });
+    }
 
-  // Meta Pixel Event
-  if (window.fbq) {
-    window.fbq('track', 'ViewContent', {
-      content_type: 'vehicle',
-      content_ids: [vehicle.vin],
-      content_name: vehicleName,
-      value: vehicle.price,
-      currency: 'CAD',
-    });
-  }
+    // Meta Pixel Event
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent', {
+        content_type: 'vehicle',
+        content_ids: [vehicle.vin],
+        content_name: vehicleName,
+        value: vehicle.price,
+        currency: 'CAD',
+      });
+    }
 
-  // Google Ads Dynamic Remarketing
-  if (window.gtag) {
-    window.gtag('event', 'view_item', {
-      ecomm_prodid: vehicle.vin,
-      ecomm_totalvalue: vehicle.price,
-      ecomm_pagetype: 'product',
-    });
+    // Google Ads Dynamic Remarketing
+    if (window.gtag) {
+      window.gtag('event', 'view_item', {
+        ecomm_prodid: vehicle.vin,
+        ecomm_totalvalue: vehicle.price,
+        ecomm_pagetype: 'product',
+      });
+    }
   }
 
   // Store in viewed history
@@ -85,13 +96,8 @@ export const trackVehicleView = (vehicle: {
 };
 
 // Track inventory search
-export const trackInventorySearch = (filters: {
-  searchQuery?: string;
-  priceFilter?: string;
-  makeFilter?: string;
-  [key: string]: any;
-}) => {
-  if (window.dataLayer) {
+export const trackInventorySearch = (filters: InventoryFilters) => {
+  if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
       event: 'search_inventory',
       search_query: filters.searchQuery || '',
@@ -102,21 +108,23 @@ export const trackInventorySearch = (filters: {
 
 // Track click to call
 export const trackClickToCall = (phoneNumber: string) => {
-  if (window.dataLayer) {
-    window.dataLayer.push({
-      event: 'click_call',
-      phone_number: phoneNumber,
-    });
-  }
+  if (typeof window !== 'undefined') {
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'click_call',
+        phone_number: phoneNumber,
+      });
+    }
 
-  if (window.fbq) {
-    window.fbq('track', 'Contact');
+    if (window.fbq) {
+      window.fbq('track', 'Contact');
+    }
   }
 };
 
 // Track form start
 export const trackFormStart = (formType: string, vehicleId?: string) => {
-  if (window.dataLayer) {
+  if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
       event: 'form_start',
       form_type: formType,
@@ -128,33 +136,35 @@ export const trackFormStart = (formType: string, vehicleId?: string) => {
 
 // Track form submission
 export const trackFormSubmit = (formType: string, vehicleId?: string) => {
-  if (window.dataLayer) {
-    window.dataLayer.push({
-      event: 'form_submit',
-      form_type: formType,
-      vehicle_id: vehicleId || '',
-    });
-  }
+  if (typeof window !== 'undefined') {
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'form_submit',
+        form_type: formType,
+        vehicle_id: vehicleId || '',
+      });
+    }
 
-  if (window.fbq) {
-    window.fbq('track', 'Lead', {
-      content_name: formType,
-      content_category: 'form_submission',
-    });
-  }
+    if (window.fbq) {
+      window.fbq('track', 'Lead', {
+        content_name: formType,
+        content_category: 'form_submission',
+      });
+    }
 
-  if (window.gtag) {
-    window.gtag('event', 'conversion', {
-      send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
-      value: 1.0,
-      currency: 'CAD',
-    });
+    if (window.gtag) {
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL',
+        value: 1.0,
+        currency: 'CAD',
+      });
+    }
   }
 };
 
 // Track add to favorites
 export const trackAddToFavorites = (vehicleId: string) => {
-  if (window.dataLayer) {
+  if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
       event: 'add_to_favorites',
       vehicle_id: vehicleId,
@@ -162,13 +172,22 @@ export const trackAddToFavorites = (vehicleId: string) => {
   }
 };
 
+interface ViewedVehicleHistoryItem {
+  id: string;
+  vin: string;
+  name: string;
+  viewedAt: string;
+}
+
 // Store viewed vehicle history
-const storeViewedVehicle = (vehicle: any) => {
+const storeViewedVehicle = (vehicle: Vehicle) => {
+  if (typeof window === 'undefined') return;
+
   try {
-    const history = JSON.parse(localStorage.getItem('vehicleViewsHistory') || '[]');
+    const history: ViewedVehicleHistoryItem[] = JSON.parse(localStorage.getItem('vehicleViewsHistory') || '[]');
     const newHistory = [
       { id: vehicle.id, vin: vehicle.vin, name: `${vehicle.year} ${vehicle.make} ${vehicle.model}`, viewedAt: new Date().toISOString() },
-      ...history.filter((v: any) => v.id !== vehicle.id),
+      ...history.filter((v) => v.id !== vehicle.id),
     ].slice(0, 5);
     localStorage.setItem('vehicleViewsHistory', JSON.stringify(newHistory));
   } catch (e) {
@@ -177,7 +196,9 @@ const storeViewedVehicle = (vehicle: any) => {
 };
 
 // Get viewed vehicle history
-export const getViewedVehicleHistory = () => {
+export const getViewedVehicleHistory = (): ViewedVehicleHistoryItem[] => {
+  if (typeof window === 'undefined') return [];
+
   try {
     return JSON.parse(localStorage.getItem('vehicleViewsHistory') || '[]');
   } catch (e) {
@@ -186,9 +207,11 @@ export const getViewedVehicleHistory = () => {
 };
 
 // User identification hook for CRM
-export const identifyUser = (emailOrPhone: string, data: any = {}) => {
+export const identifyUser = (emailOrPhone: string, data: Record<string, unknown> = {}) => {
+  if (typeof window === 'undefined') return;
+
   console.log('CRM Identify:', emailOrPhone, data);
-  
+
   // This will be replaced with real CRM integration later (HubSpot/Zoho/etc.)
   if (window.identifyUser) {
     window.identifyUser(emailOrPhone, data);
@@ -203,15 +226,17 @@ export const identifyUser = (emailOrPhone: string, data: any = {}) => {
 
 // Enhanced e-commerce tracking
 export const trackPageView = (pagePath: string, pageTitle: string) => {
-  if (window.dataLayer) {
-    window.dataLayer.push({
-      event: 'page_view',
-      page_path: pagePath,
-      page_title: pageTitle,
-    });
-  }
+  if (typeof window !== 'undefined') {
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'page_view',
+        page_path: pagePath,
+        page_title: pageTitle,
+      });
+    }
 
-  if (window.fbq) {
-    window.fbq('track', 'PageView');
+    if (window.fbq) {
+      window.fbq('track', 'PageView');
+    }
   }
 };

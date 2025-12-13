@@ -83,7 +83,7 @@ export default function InventoryManagement() {
       .select("*")
       .eq("vehicle_id", vehicleId)
       .order("is_primary", { ascending: false });
-    
+
     setVehicleImages(prev => ({
       ...prev,
       [vehicleId]: data || []
@@ -92,7 +92,7 @@ export default function InventoryManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const vehicleData = {
       make: formData.make,
       model: formData.model,
@@ -224,17 +224,17 @@ export default function InventoryManagement() {
             <DialogHeader>
               <DialogTitle>{editingVehicle ? "Edit Vehicle" : "Add New Vehicle"}</DialogTitle>
             </DialogHeader>
-            
+
             {editingVehicle ? (
               <Tabs defaultValue="details" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="details">Vehicle Details</TabsTrigger>
                   <TabsTrigger value="images">Images</TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="images" className="space-y-4">
-                  <ImageUpload 
-                    vehicleId={editingVehicle.id} 
+                  <ImageUpload
+                    vehicleId={editingVehicle.id}
                     onImagesUploaded={() => loadVehicleImages(editingVehicle.id)}
                   />
                   <VehicleImages
@@ -243,160 +243,160 @@ export default function InventoryManagement() {
                     onImagesChanged={() => loadVehicleImages(editingVehicle.id)}
                   />
                 </TabsContent>
-                
+
                 <TabsContent value="details">
                   <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="make">Make *</Label>
-                  <Input
-                    id="make"
-                    required
-                    value={formData.make}
-                    onChange={(e) => setFormData({ ...formData, make: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="model">Model *</Label>
-                  <Input
-                    id="model"
-                    required
-                    value={formData.model}
-                    onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="year">Year *</Label>
-                  <Input
-                    id="year"
-                    type="number"
-                    required
-                    value={formData.year}
-                    onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="price">Price *</Label>
-                  <Input
-                    id="price"
-                    type="number"
-                    required
-                    value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="mileage">Mileage *</Label>
-                  <Input
-                    id="mileage"
-                    type="number"
-                    required
-                    value={formData.mileage}
-                    onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="color">Color *</Label>
-                  <Input
-                    id="color"
-                    required
-                    value={formData.color}
-                    onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="vin">VIN *</Label>
-                  <Input
-                    id="vin"
-                    required
-                    value={formData.vin}
-                    onChange={(e) => setFormData({ ...formData, vin: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="transmission">Transmission *</Label>
-                  <Select value={formData.transmission} onValueChange={(value) => setFormData({ ...formData, transmission: value })}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="automatic">Automatic</SelectItem>
-                      <SelectItem value="manual">Manual</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="fuel_type">Fuel Type *</Label>
-                  <Select value={formData.fuel_type} onValueChange={(value) => setFormData({ ...formData, fuel_type: value })}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="gasoline">Gasoline</SelectItem>
-                      <SelectItem value="diesel">Diesel</SelectItem>
-                      <SelectItem value="electric">Electric</SelectItem>
-                      <SelectItem value="hybrid">Hybrid</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="drivetrain">Drivetrain *</Label>
-                  <Select value={formData.drivetrain} onValueChange={(value) => setFormData({ ...formData, drivetrain: value })}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="fwd">FWD</SelectItem>
-                      <SelectItem value="rwd">RWD</SelectItem>
-                      <SelectItem value="awd">AWD</SelectItem>
-                      <SelectItem value="4wd">4WD</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="status">Status *</Label>
-                  <Select value={formData.status} onValueChange={(value: any) => setFormData({ ...formData, status: value })}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="available">Available</SelectItem>
-                        <SelectItem value="sold">Sold</SelectItem>
-                        <SelectItem value="pending">Pending</SelectItem>
-                      </SelectContent>
-                  </Select>
-                 </div>
-               </div>
-               <div>
-                 <Label htmlFor="description">Description</Label>
-                 <Textarea
-                   id="description"
-                   value={formData.description}
-                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                   rows={4}
-                 />
-               </div>
-               <div className="flex items-center space-x-2">
-                 <Checkbox
-                   id="featured"
-                   checked={formData.featured}
-                   onCheckedChange={(checked) => setFormData({ ...formData, featured: checked as boolean })}
-                 />
-                 <Label htmlFor="featured" className="font-normal cursor-pointer">
-                   Featured Vehicle (display on homepage)
-                 </Label>
-               </div>
-               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => {
-                  setIsDialogOpen(false);
-                  setEditingVehicle(null);
-                  resetForm();
-                }}>
-                  Cancel
-                </Button>
-                    <Button type="submit">{editingVehicle ? "Update" : "Add"} Vehicle</Button>
-                  </div>
-                </form>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="make">Make *</Label>
+                        <Input
+                          id="make"
+                          required
+                          value={formData.make}
+                          onChange={(e) => setFormData({ ...formData, make: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="model">Model *</Label>
+                        <Input
+                          id="model"
+                          required
+                          value={formData.model}
+                          onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="year">Year *</Label>
+                        <Input
+                          id="year"
+                          type="number"
+                          required
+                          value={formData.year}
+                          onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="price">Price *</Label>
+                        <Input
+                          id="price"
+                          type="number"
+                          required
+                          value={formData.price}
+                          onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="mileage">Mileage *</Label>
+                        <Input
+                          id="mileage"
+                          type="number"
+                          required
+                          value={formData.mileage}
+                          onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="color">Color *</Label>
+                        <Input
+                          id="color"
+                          required
+                          value={formData.color}
+                          onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="vin">VIN *</Label>
+                        <Input
+                          id="vin"
+                          required
+                          value={formData.vin}
+                          onChange={(e) => setFormData({ ...formData, vin: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="transmission">Transmission *</Label>
+                        <Select value={formData.transmission} onValueChange={(value) => setFormData({ ...formData, transmission: value })}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="automatic">Automatic</SelectItem>
+                            <SelectItem value="manual">Manual</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label htmlFor="fuel_type">Fuel Type *</Label>
+                        <Select value={formData.fuel_type} onValueChange={(value) => setFormData({ ...formData, fuel_type: value })}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="gasoline">Gasoline</SelectItem>
+                            <SelectItem value="diesel">Diesel</SelectItem>
+                            <SelectItem value="electric">Electric</SelectItem>
+                            <SelectItem value="hybrid">Hybrid</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label htmlFor="drivetrain">Drivetrain *</Label>
+                        <Select value={formData.drivetrain} onValueChange={(value) => setFormData({ ...formData, drivetrain: value })}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="fwd">FWD</SelectItem>
+                            <SelectItem value="rwd">RWD</SelectItem>
+                            <SelectItem value="awd">AWD</SelectItem>
+                            <SelectItem value="4wd">4WD</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label htmlFor="status">Status *</Label>
+                        <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value as "available" | "sold" | "pending" })}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="available">Available</SelectItem>
+                            <SelectItem value="sold">Sold</SelectItem>
+                            <SelectItem value="pending">Pending</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea
+                        id="description"
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        rows={4}
+                      />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="featured"
+                        checked={formData.featured}
+                        onCheckedChange={(checked) => setFormData({ ...formData, featured: checked as boolean })}
+                      />
+                      <Label htmlFor="featured" className="font-normal cursor-pointer">
+                        Featured Vehicle (display on homepage)
+                      </Label>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <Button type="button" variant="outline" onClick={() => {
+                        setIsDialogOpen(false);
+                        setEditingVehicle(null);
+                        resetForm();
+                      }}>
+                        Cancel
+                      </Button>
+                      <Button type="submit">{editingVehicle ? "Update" : "Add"} Vehicle</Button>
+                    </div>
+                  </form>
                 </TabsContent>
               </Tabs>
             ) : (
@@ -510,7 +510,7 @@ export default function InventoryManagement() {
                   </div>
                   <div>
                     <Label htmlFor="status">Status *</Label>
-                    <Select value={formData.status} onValueChange={(value: any) => setFormData({ ...formData, status: value })}>
+                    <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value as "available" | "sold" | "pending" })}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -521,27 +521,27 @@ export default function InventoryManagement() {
                       </SelectContent>
                     </Select>
                   </div>
-                 </div>
-                 <div>
-                   <Label htmlFor="description">Description</Label>
-                   <Textarea
-                     id="description"
-                     value={formData.description}
-                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                     rows={4}
-                   />
-                 </div>
-                 <div className="flex items-center space-x-2">
-                   <Checkbox
-                     id="featured-add"
-                     checked={formData.featured}
-                     onCheckedChange={(checked) => setFormData({ ...formData, featured: checked as boolean })}
-                   />
-                   <Label htmlFor="featured-add" className="font-normal cursor-pointer">
-                     Featured Vehicle (display on homepage)
-                   </Label>
-                 </div>
-                 <div className="flex justify-end gap-2">
+                </div>
+                <div>
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    rows={4}
+                  />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="featured-add"
+                    checked={formData.featured}
+                    onCheckedChange={(checked) => setFormData({ ...formData, featured: checked as boolean })}
+                  />
+                  <Label htmlFor="featured-add" className="font-normal cursor-pointer">
+                    Featured Vehicle (display on homepage)
+                  </Label>
+                </div>
+                <div className="flex justify-end gap-2">
                   <Button type="button" variant="outline" onClick={() => {
                     setIsDialogOpen(false);
                     setEditingVehicle(null);
@@ -578,7 +578,7 @@ export default function InventoryManagement() {
           {vehicles.map((vehicle) => {
             const images = vehicleImages[vehicle.id] || [];
             const primaryImage = images.find(img => img.is_primary) || images[0];
-            
+
             return (
               <Card key={vehicle.id} className="overflow-hidden">
                 {primaryImage && (
@@ -614,15 +614,15 @@ export default function InventoryManagement() {
                     <Button variant="outline" className="flex-1" onClick={() => openEditDialog(vehicle)}>
                       Edit
                     </Button>
-                    <Select value={vehicle.status} onValueChange={(value: any) => updateVehicleStatus(vehicle.id, value)}>
+                    <Select value={vehicle.status} onValueChange={(value) => updateVehicleStatus(vehicle.id, value as "available" | "sold" | "pending")}>
                       <SelectTrigger className="flex-1">
                         <SelectValue />
                       </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="available">Available</SelectItem>
-                      <SelectItem value="sold">Sold</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
-                    </SelectContent>
+                      <SelectContent>
+                        <SelectItem value="available">Available</SelectItem>
+                        <SelectItem value="sold">Sold</SelectItem>
+                        <SelectItem value="pending">Pending</SelectItem>
+                      </SelectContent>
                     </Select>
                   </div>
                 </CardContent>

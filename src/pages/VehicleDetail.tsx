@@ -12,6 +12,7 @@ import { trackVehicleView, trackClickToCall } from "@/utils/tracking";
 import { generateVehicleStructuredData } from "@/utils/vehicleStructuredData";
 import VehicleFeatures from "@/components/VehicleFeatures";
 import PaymentCalculatorModal from "@/components/PaymentCalculatorModal";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 const VehicleDetail = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const VehicleDetail = () => {
   // Auto slideshow
   useEffect(() => {
     if (!images || images.length <= 1) return;
-    
+
     const interval = setInterval(() => {
       setSelectedImageIndex((prev) => (prev + 1) % images.length);
     }, 4000);
@@ -62,22 +63,8 @@ const VehicleDetail = () => {
   useEffect(() => {
     if (vehicle) {
       trackVehicleView(vehicle);
-      
-      const structuredData = generateVehicleStructuredData(
-        vehicle,
-        images?.[0]?.image_url
-      );
-      
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.text = JSON.stringify(structuredData);
-      document.head.appendChild(script);
-      
-      return () => {
-        document.head.removeChild(script);
-      };
     }
-  }, [vehicle, images]);
+  }, [vehicle]);
 
   const handleCallClick = () => {
     trackClickToCall('+16398990000');
@@ -117,7 +104,7 @@ const VehicleDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {vehicle && (
-        <SEO 
+        <SEO
           title={`${vehicle.year} ${vehicle.make} ${vehicle.model} for Sale`}
           description={`Buy this ${vehicle.year} ${vehicle.make} ${vehicle.model} with ${vehicle.mileage.toLocaleString()} km. ${vehicle.transmission} transmission, ${vehicle.fuel_type} fuel. Price: $${Number(vehicle.price).toLocaleString()}. Located at Car Street, Langton ON.`}
           url={`https://carstreet.ca/vehicle/${vehicle.id}`}
@@ -148,11 +135,12 @@ const VehicleDetail = () => {
                   <>
                     <div className="relative group aspect-video">
                       <picture>
-                        <img 
-                          src={images[selectedImageIndex].image_url} 
+                        <OptimizedImage
+                          src={images[selectedImageIndex].image_url}
                           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                          width={1200}
+                          height={675}
                           className="w-full h-full object-cover rounded-lg"
-                          loading="lazy"
                         />
                       </picture>
                       {images.length > 1 && (
@@ -179,9 +167,8 @@ const VehicleDetail = () => {
                               <button
                                 key={index}
                                 onClick={() => setSelectedImageIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-colors ${
-                                  index === selectedImageIndex ? "bg-white" : "bg-white/50"
-                                }`}
+                                className={`w-2 h-2 rounded-full transition-colors ${index === selectedImageIndex ? "bg-white" : "bg-white/50"
+                                  }`}
                               />
                             ))}
                           </div>
@@ -193,16 +180,16 @@ const VehicleDetail = () => {
                         {images.map((image, index) => (
                           <div key={image.id} className="aspect-video">
                             <picture>
-                              <img 
-                                src={image.image_url} 
+                              <OptimizedImage
+                                src={image.image_url}
                                 alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                                className={`w-full h-full object-cover rounded cursor-pointer transition-all ${
-                                  selectedImageIndex === index 
-                                    ? 'ring-2 ring-primary opacity-100' 
+                                width={200}
+                                height={112}
+                                className={`w-full h-full object-cover rounded cursor-pointer transition-all ${selectedImageIndex === index
+                                    ? 'ring-2 ring-primary opacity-100'
                                     : 'opacity-60 hover:opacity-100'
-                                }`}
+                                  }`}
                                 onClick={() => setSelectedImageIndex(index)}
-                                loading="lazy"
                               />
                             </picture>
                           </div>
@@ -306,18 +293,18 @@ const VehicleDetail = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Button 
-                      variant="default" 
-                      className="w-full" 
+                    <Button
+                      variant="default"
+                      className="w-full"
                       size="lg"
                       onClick={() => setIsCalculatorOpen(true)}
                     >
                       <Calculator className="mr-2 h-5 w-5" />
                       Estimate Your Payments
                     </Button>
-                    <Button 
-                      variant="default" 
-                      className="w-full" 
+                    <Button
+                      variant="default"
+                      className="w-full"
                       size="lg"
                       asChild
                     >
@@ -326,9 +313,9 @@ const VehicleDetail = () => {
                         Get Pre-Approved
                       </Link>
                     </Button>
-                    <Button 
-                      variant="default" 
-                      className="w-full" 
+                    <Button
+                      variant="default"
+                      className="w-full"
                       size="lg"
                       onClick={() => {
                         handleCallClick();
@@ -338,9 +325,9 @@ const VehicleDetail = () => {
                       <Phone className="mr-2 h-5 w-5" />
                       Call Now
                     </Button>
-                    <Button 
-                      variant="default" 
-                      className="w-full" 
+                    <Button
+                      variant="default"
+                      className="w-full"
                       size="lg"
                       onClick={() => window.location.href = 'mailto:info@carstreet.ca'}
                     >

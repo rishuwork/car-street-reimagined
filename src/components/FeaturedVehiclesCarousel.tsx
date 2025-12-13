@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, Gauge } from "lucide-react";
 import { Tables } from "@/integrations/supabase/types";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 type VehicleWithImage = Tables<"vehicles"> & {
   primaryImage?: string;
@@ -59,7 +60,7 @@ export default function FeaturedVehiclesCarousel({ vehicles }: FeaturedVehiclesC
 
   const handleTouchEnd = () => {
     if (touchStartX.current === null || touchEndX.current === null) return;
-    
+
     const diff = touchStartX.current - touchEndX.current;
     const minSwipeDistance = 50;
 
@@ -97,7 +98,7 @@ export default function FeaturedVehiclesCarousel({ vehicles }: FeaturedVehiclesC
   }
 
   return (
-    <div 
+    <div
       className="relative"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -129,12 +130,13 @@ export default function FeaturedVehiclesCarousel({ vehicles }: FeaturedVehiclesC
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {visibleVehicles.map((vehicle) => (
           <Card key={vehicle.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-            <div className="relative overflow-hidden aspect-square">
-              <img
+            <div className="relative overflow-hidden aspect-[4/3]">
+              <OptimizedImage
                 src={vehicle.primaryImage || "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&auto=format&fit=crop"}
                 alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                width={600}
+                height={450}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                loading="lazy"
               />
             </div>
             <CardContent className="p-6">
@@ -164,9 +166,8 @@ export default function FeaturedVehiclesCarousel({ vehicles }: FeaturedVehiclesC
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? "bg-primary" : "bg-muted-foreground/30"
-              }`}
+              className={`w-2 h-2 rounded-full transition-colors ${index === currentIndex ? "bg-primary" : "bg-muted-foreground/30"
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}

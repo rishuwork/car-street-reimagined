@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ const BudgetCalculator = () => {
 
   const SALES_TAX_RATE = 0.13; // 13% HST
 
-  const calculatePayment = () => {
+  const calculatePayment = useCallback(() => {
     const price = parseFloat(vehiclePrice.toString()) || 0;
     const down = parseFloat(downPayment.toString()) || 0;
     const term = parseInt(loanTerm);
@@ -38,11 +38,11 @@ const BudgetCalculator = () => {
     }
 
     setMonthlyPayment(payment);
-  };
+  }, [vehiclePrice, downPayment, loanTerm, interestRate, includeTradeIn, tradeInValue, includeSalesTax]);
 
   useEffect(() => {
     calculatePayment();
-  }, [vehiclePrice, downPayment, loanTerm, interestRate, includeTradeIn, tradeInValue, includeSalesTax]);
+  }, [calculatePayment]);
 
   const handleShopByBudget = () => {
     // Track budget search event
@@ -66,7 +66,7 @@ const BudgetCalculator = () => {
       <div className="text-center mb-8">
         <h2 className="text-4xl font-heading font-bold mb-4">Know Your Buying Power</h2>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          Calculate your estimated monthly payment and find vehicles within your budget. 
+          Calculate your estimated monthly payment and find vehicles within your budget.
           Get pre-qualified in minutes with no impact to your credit score.
         </p>
       </div>
@@ -149,7 +149,7 @@ const BudgetCalculator = () => {
               />
               <Label htmlFor="tradeIn" className="cursor-pointer">Include Trade-In</Label>
             </div>
-            
+
             {includeTradeIn && (
               <div>
                 <Input
@@ -187,8 +187,8 @@ const BudgetCalculator = () => {
               </div>
             </div>
 
-            <Button 
-              onClick={handleShopByBudget} 
+            <Button
+              onClick={handleShopByBudget}
               size="lg"
               className="px-8"
             >

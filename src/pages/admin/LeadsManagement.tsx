@@ -15,6 +15,39 @@ type ContactSubmission = Tables<"contact_submissions">;
 
 export default function LeadsManagement() {
   const [leads, setLeads] = useState<ContactSubmission[]>([]);
+
+  interface PreApprovalData {
+    vehicleType?: string;
+    budget?: string;
+    tradeIn?: string;
+    creditRating?: string;
+    employmentStatus?: string;
+    incomeDetails?: {
+      type?: string;
+      annualIncome?: string;
+      hourlyWage?: string;
+      hoursPerWeek?: string;
+      monthlyIncome?: string;
+    };
+    employerDetails?: {
+      name?: string;
+      jobTitle?: string;
+      phone?: string;
+      yearsEmployed?: string;
+    };
+    address?: string;
+    timeAtAddress?: {
+      years?: number;
+      months?: number;
+    };
+    housing?: {
+      rentOrOwn?: "rent" | "own";
+      monthlyPayment?: string;
+    };
+    dateOfBirth?: string;
+    age?: number;
+    sin?: string;
+  }
   const [isLoading, setIsLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState<ContactSubmission | null>(null);
   const [status, setStatus] = useState("");
@@ -73,11 +106,11 @@ export default function LeadsManagement() {
     if (!selectedLead) return;
 
     setIsUpdating(true);
-    
+
     // Preserve pre-approval JSON data if it exists, store admin notes separately
     let notesToSave: string | null = notes.trim() || null;
     const existingPreApprovalData = parsePreApprovalData(selectedLead.notes);
-    
+
     // If there was pre-approval data, we need to keep it and add admin notes in a structured way
     if (existingPreApprovalData) {
       if (notes.trim()) {
@@ -91,7 +124,7 @@ export default function LeadsManagement() {
         notesToSave = selectedLead.notes;
       }
     }
-    
+
     const { error } = await supabase
       .from("contact_submissions")
       .update({
@@ -126,7 +159,7 @@ export default function LeadsManagement() {
     }
   };
 
-  const parsePreApprovalData = (notes: string | null) => {
+  const parsePreApprovalData = (notes: string | null): PreApprovalData | null => {
     if (!notes) return null;
     try {
       return JSON.parse(notes);
@@ -145,7 +178,7 @@ export default function LeadsManagement() {
     return `${sin.slice(0, 3)}-${sin.slice(3, 5)}-${sin.slice(5, 9)}`;
   };
 
-  const renderPreApprovalDetails = (data: any) => {
+  const renderPreApprovalDetails = (data: PreApprovalData | null) => {
     if (!data) return null;
 
     return (
@@ -308,14 +341,14 @@ export default function LeadsManagement() {
                     <span className="font-medium text-sm">Message:</span>
                     <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">{lead.message}</p>
                   </div>
-                  
+
                   {hasAdminNotes(lead) && (
                     <div className="bg-muted/50 rounded-md p-3">
                       <span className="font-medium text-sm">Your Notes:</span>
                       <p className="text-sm text-muted-foreground mt-1 whitespace-pre-line">{hasAdminNotes(lead)}</p>
                     </div>
                   )}
-                  
+
                   <div className="flex gap-2 pt-4">
                     {preApprovalData && (
                       <Dialog open={viewDetailsOpen && selectedLead?.id === lead.id} onOpenChange={(open) => {
@@ -346,7 +379,7 @@ export default function LeadsManagement() {
                         </DialogContent>
                       </Dialog>
                     )}
-                    
+
                     <Dialog open={isDialogOpen && selectedLead?.id === lead.id} onOpenChange={(open) => {
                       setIsDialogOpen(open);
                       if (!open) setSelectedLead(null);

@@ -8,9 +8,16 @@ const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
+const isBrowser = typeof window !== 'undefined';
+const storageAdapter = isBrowser ? localStorage : {
+  getItem: (key: string) => null,
+  setItem: (key: string, value: string) => { },
+  removeItem: (key: string) => { },
+};
+
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
-    storage: localStorage,
+    storage: storageAdapter,
     persistSession: true,
     autoRefreshToken: true,
   }

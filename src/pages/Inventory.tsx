@@ -11,6 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Search, ChevronDown, ChevronUp, SlidersHorizontal, Gauge, Palette, Settings, Car } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 type Vehicle = Tables<"vehicles">;
 type VehicleImage = Tables<"vehicle_images">;
@@ -94,7 +95,7 @@ const Inventory = () => {
           .order("is_primary", { ascending: false });
         return { vehicleId: vehicle.id, images: images || [] };
       });
-      
+
       const imageResults = await Promise.all(imagePromises);
       const imagesMap: Record<string, VehicleImage[]> = {};
       imageResults.forEach(({ vehicleId, images }) => {
@@ -106,18 +107,18 @@ const Inventory = () => {
   };
 
   const filteredVehicles = vehicles.filter((vehicle) => {
-    const matchesSearch = searchTerm === "" || 
+    const matchesSearch = searchTerm === "" ||
       vehicle.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vehicle.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
       vehicle.year.toString().includes(searchTerm);
-    
+
     const matchesMake = makeFilter === "all" || vehicle.make === makeFilter;
-    
+
     const matchesModel = modelFilter === "all" || vehicle.model === modelFilter;
-    
+
     const matchesYear = yearFilter === "all" || vehicle.year.toString() === yearFilter;
-    
-    const matchesPrice = priceFilter === "all" || 
+
+    const matchesPrice = priceFilter === "all" ||
       (priceFilter === "under20k" && Number(vehicle.price) < 20000) ||
       (priceFilter === "20to30k" && Number(vehicle.price) >= 20000 && Number(vehicle.price) < 30000) ||
       (priceFilter === "over30k" && Number(vehicle.price) >= 30000);
@@ -129,18 +130,18 @@ const Inventory = () => {
   });
 
   // Get filtered models based on selected make
-  const filteredModels = makeFilter === "all" 
-    ? models 
+  const filteredModels = makeFilter === "all"
+    ? models
     : [...new Set(vehicles.filter(v => v.make === makeFilter).map(v => v.model))].sort();
 
   return (
     <div className="min-h-screen flex flex-col">
-        <SEO 
-          title="Used Car Inventory"
-          description="Browse our selection of quality pre-owned vehicles at Car Street. Find the perfect used car with competitive pricing and flexible financing options."
-          url="https://carstreet.ca/inventory"
-          keywords="used cars for sale, pre-owned vehicles, car inventory, used car dealership Langton Ontario"
-        />
+      <SEO
+        title="Used Car Inventory"
+        description="Browse our selection of quality pre-owned vehicles at Car Street. Find the perfect used car with competitive pricing and flexible financing options."
+        url="https://carstreet.ca/inventory"
+        keywords="used cars for sale, pre-owned vehicles, car inventory, used car dealership Langton Ontario"
+      />
       <Header />
 
       <main className="flex-1 py-12">
@@ -178,7 +179,7 @@ const Inventory = () => {
                         className="pl-10"
                       />
                     </div>
-                    
+
                     <Select value={makeFilter} onValueChange={(value) => {
                       setMakeFilter(value);
                       setModelFilter("all");
@@ -262,12 +263,13 @@ const Inventory = () => {
 
                   return (
                     <Card key={vehicle.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-                      <div className="relative overflow-hidden aspect-square">
-                        <img 
-                          src={imageUrl} 
+                      <div className="relative overflow-hidden aspect-[4/3]">
+                        <OptimizedImage
+                          src={imageUrl}
                           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                          width={400}
+                          height={400}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          loading="lazy"
                         />
                       </div>
                       <CardContent className="p-4">
