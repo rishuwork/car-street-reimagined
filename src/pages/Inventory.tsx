@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Search, ChevronDown, ChevronUp, SlidersHorizontal, Gauge, Palette, Settings, Car } from "lucide-react";
+import { Search, ChevronDown, ChevronUp, SlidersHorizontal, Gauge, Palette, Settings, Car, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
 import { OptimizedImage } from "@/components/ui/optimized-image";
@@ -260,6 +260,7 @@ const Inventory = () => {
                   const images = vehicleImages[vehicle.id] || [];
                   const primaryImage = images.find(img => img.is_primary) || images[0];
                   const imageUrl = primaryImage?.image_url || "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&auto=format&fit=crop";
+                  const carfaxUrl = (vehicle as any).carfax_url;
 
                   return (
                     <Card key={vehicle.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group">
@@ -303,9 +304,21 @@ const Inventory = () => {
                               <p className="text-xl font-bold text-price">${Number(vehicle.price).toLocaleString()}</p>
                               <p className="text-xs text-muted-foreground">+ Tax & Licensing</p>
                             </div>
-                            <Link to={`/vehicle/${vehicle.id}`} className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
-                              View Details <span>↗</span>
-                            </Link>
+                            <div className="flex items-center gap-2">
+                              {carfaxUrl && (
+                                <a
+                                  href={carfaxUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-xs bg-muted px-2 py-1 rounded hover:bg-muted/80 flex items-center gap-1"
+                                >
+                                  CARFAX <ExternalLink className="h-3 w-3" />
+                                </a>
+                              )}
+                              <Link to={`/vehicle/${vehicle.id}`} className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+                                View Details <span>↗</span>
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       </CardContent>

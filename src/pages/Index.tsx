@@ -6,8 +6,9 @@ import Footer from "@/components/Footer";
 import BudgetCalculator from "@/components/BudgetCalculator";
 import FeaturedVehiclesCarousel from "@/components/FeaturedVehiclesCarousel";
 import CustomerReviews from "@/components/CustomerReviews";
+import SellVehicleSection from "@/components/SellVehicleSection";
 import { SEO } from "@/components/SEO";
-import { CreditCard, Eye, Scale, FileText } from "lucide-react";
+import { CreditCard, Eye, Scale } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -113,8 +114,11 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Sell Your Vehicle Section */}
+      <SellVehicleSection />
+
       {/* Why Choose Us Section */}
-      <section className="py-12 bg-secondary text-secondary-foreground">
+      <section className="py-12 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-heading font-bold mb-6 text-center">Why Choose Car Street?</h2>
           

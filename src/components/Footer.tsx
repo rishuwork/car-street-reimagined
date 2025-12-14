@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import carfaxLogo from "@/assets/logos/carfax.png";
+import omvicLogo from "@/assets/logos/omvic.png";
+import ucdaLogo from "@/assets/logos/ucda.png";
 
 const Footer = () => {
   return (
@@ -72,6 +75,12 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
                 <span>#1-17 Queen St<br />Langton, ON N0E 1G0</span>
               </div>
+            </div>
+            {/* Trust Badges */}
+            <div className="flex items-center gap-3 pt-2 flex-wrap">
+              <img src={carfaxLogo} alt="Carfax" className="h-8 object-contain" />
+              <img src={omvicLogo} alt="OMVIC - Ontario's Vehicle Sales Regulator" className="h-8 object-contain" />
+              <img src={ucdaLogo} alt="UCDA - Used Car Dealers Association of Ontario" className="h-8 object-contain" />
             </div>
           </div>
         </div>
