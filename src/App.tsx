@@ -15,10 +15,12 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import PreApproval from "./pages/PreApproval";
+import SellMyCar from "./pages/SellMyCar";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import InventoryManagement from "./pages/admin/InventoryManagement";
 import LeadsManagement from "./pages/admin/LeadsManagement";
+import AppraisalManagement from "./pages/admin/AppraisalManagement";
 import UsersManagement from "./pages/admin/UsersManagement";
 import FAQManagement from "./pages/admin/FAQManagement";
 import NotFound from "./pages/NotFound";
@@ -39,6 +41,7 @@ const App = () => (
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/vehicle/:id" element={<VehicleDetail />} />
           <Route path="/pre-approval" element={<PreApproval />} />
+          <Route path="/sell-my-car" element={<SellMyCar />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
@@ -47,6 +50,7 @@ const App = () => (
             <Route index element={<AdminDashboard />} />
             <Route path="inventory" element={<InventoryManagement />} />
             <Route path="leads" element={<LeadsManagement />} />
+            <Route path="appraisals" element={<AppraisalManagement />} />
             <Route path="users" element={<UsersManagement />} />
             <Route path="faqs" element={<FAQManagement />} />
           </Route>

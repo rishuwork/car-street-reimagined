@@ -176,6 +176,7 @@ export type Database = {
       }
       vehicles: {
         Row: {
+          carfax_url: string | null
           color: string
           condition: Database["public"]["Enums"]["vehicle_condition"]
           condition_notes: string | null
@@ -205,6 +206,7 @@ export type Database = {
           year: number
         }
         Insert: {
+          carfax_url?: string | null
           color: string
           condition?: Database["public"]["Enums"]["vehicle_condition"]
           condition_notes?: string | null
@@ -234,6 +236,7 @@ export type Database = {
           year: number
         }
         Update: {
+          carfax_url?: string | null
           color?: string
           condition?: Database["public"]["Enums"]["vehicle_condition"]
           condition_notes?: string | null
